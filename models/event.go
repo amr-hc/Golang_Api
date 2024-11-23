@@ -103,3 +103,34 @@ func (e *Event) Delete() error {
 
 	return err
 }
+func (e *Event) Register(userId int64) error {
+	statement := `insert into registration (event_id, user_id) values (? , ?)`
+
+	stmt, err := db.DB.Prepare(statement)
+
+	if err!= nil {
+        return err
+    }
+
+	defer stmt.Close()
+
+	_ , err = stmt.Exec(e.ID, userId)
+
+	return err
+}
+
+func (e *Event) CancelRegistration(userId int64) error {
+	statement := `Delete from registration where event_id = ? and user_id = ?`
+
+	stmt, err := db.DB.Prepare(statement)
+
+	if err!= nil {
+        return err
+    }
+
+	defer stmt.Close()
+
+	_ , err = stmt.Exec(e.ID, userId)
+
+	return err
+}
