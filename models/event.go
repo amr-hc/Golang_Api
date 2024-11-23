@@ -11,7 +11,7 @@ type Event struct {
 	Description string  `binding:"required"`
 	Date        time.Time  `binding:"required"`
 	Location    string  `binding:"required"`
-	UserID      int   
+	UserID      int64   
 }
 
 

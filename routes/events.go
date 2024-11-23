@@ -39,8 +39,7 @@ func createEvent ( context *gin.Context ){
 		context.JSON(http.StatusInternalServerError, gin.H{"message" : "Couldn't parese event", "error": err.Error()})
 		return
 	}
-	event.ID = 1
-	event.UserID = 1
+	event.UserID = context.GetInt64("userId")
 	err = event.Save()
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"message" : "Couldn't create event", "error": err.Error()})
